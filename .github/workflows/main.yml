@@ -35,13 +35,13 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore src/ProjectInvest.csproj
 
       - name: Build
-        run: dotnet build -c Release --no-restore
+        run: dotnet build src/ProjectInvest.csproj -c Release --no-restore
 
       - name: Publish .NET
-        run: dotnet publish . -c:Release -o docs --nologo
+        run: dotnet publish src/ProjectInvest.csproj -c:Release -o docs --nologo
 
       - name: Copy index.html to 404.html
         run: cp docs/wwwroot/index.html docs/wwwroot/404.html
