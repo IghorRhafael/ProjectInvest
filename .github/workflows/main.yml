@@ -39,13 +39,15 @@ jobs:
               run: dotnet build --c Release --no-restore
 
             - name: Publish .NET
-              run: dotnet publish ProjectInvest.csproj --c Release -o docs --nologo
+              run: dotnet publish ProjectInvest.csproj --c:Release -o docs --nologo
 
             - name: Set up Pages
               uses: actions/configure-pages@v4
 
             - name: Upload
               uses: actions/upload-pages-artifact@v3
+              with:
+                path: 'docs/wwwroot'
 
             - name: Deploy
               id: deployment
