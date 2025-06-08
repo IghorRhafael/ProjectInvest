@@ -1,0 +1,122 @@
+﻿@using ProjectInvest.Entidades
+@using ProjectInvest.Enums
+@if (MenuAberto)
+{
+    <div class="mlateral-menu">
+        <div class="mlateral-header">
+            <div style="padding: 10px 8px 2px 10px;">
+                <button class="mlateral-back" @onclick="VoltarParaDashboard" style="background: none; border: none; color: #fff; font-size: 17px; cursor: pointer;">
+                    &larr; Voltar para a página do curso
+                </button>
+            </div>
+            <div style="width:45%; align-content: normal">
+                <button class="mlateral-toggle" @onclick="ToggleMenu">&lt;&lt;</button>
+            </div>
+        </div>
+        <div class="mlateral-title">
+            <span class="mlateral-titulo">AUVP - A Única Verdade Possível</span>
+            <div class="mlateral-progress">
+                <span>@Progresso %</span>
+                <div class="mlateral-bar-bg">
+                    <div class="mlateral-bar-fill" style="width:@Progresso%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mlateral-modulos">
+            @foreach (var modulo in Modulos)
+            {
+                bool isOpen = modulo.Id == ModuloSelecionadoId;
+                <div class="mlateral-modulo @(isOpen ? "open" : "")">
+                    <div class="mlateral-modulo-titulo" @onclick="() => ExpandirModulo(modulo.Id)">
+                        @modulo.Nome <span class="mlateral-arrow">@((isOpen) ? "▼" : "►")</span>
+                    </div>
+                    @if (isOpen)
+                    {
+                        <div class="mlateral-aulas">
+                            @foreach (var aula in modulo.Aulas)
+                            {
+                                bool isSelected = modulo.Id == ModuloSelecionadoId && aula.Id == AulaSelecionadaId;
+                                <div class="mlateral-aula @(isSelected ? "selected" : "")" @onclick="() => SelecionarAula((EModulos)modulo.Id, aula.Id)">
+                                    <span class="mlateral-icon">
+                                        @switch (aula.Tipo)
+                                        {
+                                            case ETipoAulas.Video:
+                                                <span>&#9658;</span>
+                                                ; // Play icon
+                                                break;
+                                            case ETipoAulas.Ebook:
+                                                <span>&#128214;</span>
+                                                ; // Book icon
+                                                break;
+                                            default:
+                                                <span>&#128196;</span>
+                                                ; // Document icon
+                                                break;
+                                        }
+                                    </span>
+                                    <div class="mlateral-info">
+                                        <span class="mlateral-aula-nome">@aula.Nome</span>
+                                        <span class="mlateral-aula-tipo">@((aula.Tipo == ETipoAulas.Video) ? "video" : aula.Tipo == ETipoAulas.Ebook ? "ebook" : "Material de apoio")</span>
+                                    </div>
+                                    <span class="mlateral-dur">@aula.Duracao</span>
+                                    <span class="mlateral-check">&#10003;</span>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="mlateral-fechado">
+        <button class="mlateral-toggle" @onclick="ToggleMenu">&gt;&gt;</button>
+    </div>
+}
+
+@code {
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+
+    [Parameter]
+    public int Progresso { get; set; } = 39;
+
+    [Parameter]
+    public List<Modulo> Modulos { get; set; } = new List<Modulo>();
+
+    [Parameter]
+    public EModulos ModuloSelecionadoId { get; set; } = 0;
+
+    [Parameter]
+    public int AulaSelecionadaId { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback<EModulos> OnModuloSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<(EModulos modulo, int aula)> OnAulaSelecionada { get; set; }
+
+    bool MenuAberto = true;
+
+    void ToggleMenu() => MenuAberto = !MenuAberto;
+
+    void ExpandirModulo(EModulos moduloId)
+    {
+        if (ModuloSelecionadoId != moduloId)
+            OnModuloSelecionado.InvokeAsync(moduloId);
+    }
+
+    void SelecionarAula(EModulos moduloId, int aulaId)
+    {
+        OnAulaSelecionada.InvokeAsync((moduloId, aulaId));
+    }
+
+    void VoltarParaDashboard()
+    {
+        Navigation.NavigateTo("/Dashboard");
+    }
+}

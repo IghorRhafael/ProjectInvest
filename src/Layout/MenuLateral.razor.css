@@ -1,0 +1,212 @@
+﻿.mlateral-menu {
+    width: 27%;
+    background: #2d2d2d;
+    min-width: 200px;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 0 0 8px rgba(0,0,0,.4);
+    z-index: 3;
+    border-right: 1px solid #404040;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    position: absolute;
+}
+
+.mlateral-fechado {
+    width: 54px;
+    min-width: 54px;
+    height: 47px;
+    padding-right: 24px;
+    background: #2d2d2d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+    box-shadow: 2px 0 10px #0002;
+}
+
+.mlateral-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 8px 5px 10px;
+    min-height: 40px;
+    border-bottom: 1px solid #404040;
+    position: static;
+}
+
+.mlateral-toggle {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 22px;
+    cursor: pointer;
+    padding-left: 85%;
+}
+
+.mlateral-title {
+    padding: 22px 18px 6px 18px;
+}
+
+.mlateral-titulo {
+    /*font-weight: 700;
+    font-size: 18px;
+    color: #2f3237;*/
+    display: block;
+    margin-bottom: 14px;
+    color: #f4d03f;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.mlateral-progress {
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 2px;
+}
+
+.mlateral-bar-bg {
+    background: #72541f !important;
+    height: 6px;
+    border-radius: 3px;
+    margin-top: 2px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.mlateral-bar-fill {
+    background: #efbf4f !important;
+    height: 100%;
+    border-radius: 3px;
+    transition: width .4s;
+}
+
+.mlateral-modulos {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 18px;
+}
+
+.mlateral-modulo {
+    border-bottom: 1px solid #e6e6e6;
+    cursor: pointer;
+}
+
+    .mlateral-modulo.open, .mlateral-modulo:hover {
+        background-color: #efbf4f !important;
+        color: black !important;
+    }
+
+.mlateral-modulo-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .mlateral-modulo-titulo.selected {
+        background-color: #efbf4f !important;
+        color: black !important;
+    }
+
+.mlateral-arrow {
+    font-size: 13px;
+    margin-left: 8px;
+}
+
+.mlateral-aulas {
+    background: #dee3ed;
+}
+
+.mlateral-aula {
+    display: flex;
+    background: #2d2d2d;
+    align-items: center;
+    padding: 10px 18px;
+    gap: 10px;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: .2s;
+}
+
+    .mlateral-aula.selected {
+        background: #3d3d3d !important;
+        color: #fff;
+        border-left: 4px solid #000000;
+    }
+
+.mlateral-icon {
+    font-size: 18px;
+    width: 26px;
+    text-align: center;
+}
+
+.mlateral-info {
+    flex: 1;
+}
+
+.mlateral-aula-nome {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    color: #FFF;
+}
+
+.mlateral-aula-tipo {
+    font-size: 12px;
+    color: #5e636e;
+    display: block;
+}
+
+.mlateral-aula.selected .mlateral-aula-tipo, .mlateral-aula.selected .mlateral-aula-nome {
+    color: #fff;
+}
+
+.mlateral-dur {
+    font-size: 12px;
+    min-width: 38px;
+    text-align: right;
+    color: #5e636e;
+}
+
+.mlateral-aula.selected .mlateral-dur {
+    color: #fff;
+}
+
+.mlateral-check {
+    font-size: 15px;
+    color: #EFBF4F !important;
+    margin-left: 8px;
+}
+
+.mlateral-aula.selected .mlateral-check {
+    color: #EFBF4F !important;
+}
+
+.mlateral-back {
+    color: #fff;
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    text-align: left;
+    font-style: italic;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.mlateral-menu > div:first-child {
+    background: #232323;
+}
+
+@media (max-width:900px) {
+    .mlateral-menu, .mlateral-fechado {
+        width: 100%;
+        min-width: 54px;
+        /*position: absolute;*/
+        z-index:3;
+    }
+}
