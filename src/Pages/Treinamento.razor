@@ -6,6 +6,7 @@
 @using ProjectInvest.Server
 @using System.Text.Json
 
+@inject NavigationManager Navigation
 @inject IJSRuntime JS
 
 <MenuLateral Progresso="@progresso" Modulos="@_modulos" ModuloSelecionadoId="@_moduloSelecionado"
@@ -77,9 +78,15 @@
     EModulos _moduloSelecionado = EModulos.Modulo01; // Exemplo: ID do módulo inicial
     int _aulaSelecionadaID = 1; // Exemplo: ID da aula inicial
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        //busca modulos pelo moduloID
+        var usuario = await JS.InvokeAsync<string>("localStorage.getItem", "usuarioAtual");
+        if (string.IsNullOrEmpty(usuario))
+        {
+            Navigation.NavigateTo("/");
+            return;
+        }
+
         _modulos = ModuloServer.GetModulos((ECursos)moduloID);
     }
 
@@ -95,9 +102,9 @@
         _moduloSelecionado = sel.moduloId;
         _aulaSelecionadaID = sel.aulaId;
 
-       //UserProgressExtensions.MarcarAulaComoAssistida(sel.aulaId);
+        //UserProgressExtensions.MarcarAulaComoAssistida(sel.aulaId);
     }
-    
+
     void ToggleMenu()
     {
         MenuAberto = !MenuAberto;
