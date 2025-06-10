@@ -4,45 +4,65 @@
 @using ProjectInvest.Entidades
 @using ProjectInvest.Enums
 @using ProjectInvest.Server
+@using System.Text.Json
 
+@inject IJSRuntime JS
 
-<div class="cursos-layout">
-    <MenuLateral Progresso="@progresso"
-                 Modulos="@_modulos"
-                 ModuloSelecionadoId="@_moduloSelecionado"
-                 AulaSelecionadaId="@_aulaSelecionadaID"
-                 OnModuloSelecionado="OnModuloSelecionado"
-                 OnAulaSelecionada="OnAulaSelecionada" />
+<MenuLateral Progresso="@progresso" Modulos="@_modulos" ModuloSelecionadoId="@_moduloSelecionado"
+    AulaSelecionadaId="@_aulaSelecionadaID" OnModuloSelecionado="OnModuloSelecionado"
+    OnAulaSelecionada="OnAulaSelecionada" MenuAberto="@MenuAberto" OnToggleMenu="ToggleMenu" />
 
-    <div style="flex:1; display:flex; flex-direction:column; background:#111;">
-        <div style="background:#232323; color:#fff; font-size:18px; font-weight:500; padding:12px 0 8px 0; position: sticky; top: 0; z-index:1;">
-            <button style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 16px;" @onclick="Voltar">&lt; anterior</button>
-            <button style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 16px; float:right;" @onclick="Avancar">próximo &gt;</button>
-        </div>
-        <div style="flex:1; display:flex; align-items:center; justify-content:center; background:linear-gradient(120deg, #181818 80%, #211d15 100%); min-height:0;">
-            @if (AulaAtual != null)
-            {
-                @if (AulaAtual.Tipo == ETipoAulas.Video)
-                {
-                    <iframe style="width:90%; height:70vh; box-shadow:0 2px 18px #000a; border-radius:16px; border:3px solid #efbf4f; background:black;"
-                            src="@AulaAtual.Link"
-                            title="@AulaAtual.Nome"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                }
-                else if (AulaAtual.Tipo == ETipoAulas.Ebook)
-                {
-                    <div style="font-size:29px; color:#029c91; text-align:center; width:100%;">&#128214; Ebook disponível para download.</div>
-                }
-                else
-                {
-                    <div style="font-size:29px; color:#029c91; text-align:center; width:100%;">&#128196; Material de apoio disponível.</div>
-                }
-            }
+<div class="content-page @(MenuAberto ? "menu-aberto" : "menu-fechado")">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="cursos-layout">
+
+                        <div style="flex:1; display:flex; flex-direction:column; background:#111;">
+                            <div
+                                style="background:#232323; color:#fff; font-size:18px; font-weight:500; padding:12px 74px 8px 74px; position: sticky; top: 0; z-index:1;">
+                                <button
+                                    style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 16px;"
+                                    @onclick="Voltar">&lt; anterior</button>
+                                <button
+                                    style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 16px; float:right;"
+                                    @onclick="Avancar">próximo &gt;</button>
+                            </div>
+                            <div
+                                style="flex:1; display:flex; align-items:center; justify-content:center; background:linear-gradient(120deg, #181818 80%, #211d15 100%); min-height:0; padding: 21px 1px;">
+                                @if (AulaAtual != null)
+                                {
+                                    @if (AulaAtual.Tipo == ETipoAulas.Video)
+                                    {
+                                        <iframe
+                                            style="width:90%; height:70vh; box-shadow:0 2px 18px #000a; border-radius:16px; border:3px solid #efbf4f; background:black;"
+                                            src="@AulaAtual.Link" title="@AulaAtual.Nome" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    }
+                                    else if (AulaAtual.Tipo == ETipoAulas.Ebook)
+                                    {
+                                        <div style="font-size:29px; color:#029c91; text-align:center; width:100%;">&#128214;
+                                            Ebook disponível para download.</div>
+                                    }
+                                    else
+                                    {
+                                        <div style="font-size:29px; color:#029c91; text-align:center; width:100%;">&#128196;
+                                            Material de apoio disponível.</div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 @code {
 
     [Parameter]
@@ -50,10 +70,12 @@
 
     int progresso = 0;
 
+    bool MenuAberto { get; set; } = true;
+
     public List<Modulo> _modulos = new List<Modulo>();
 
     EModulos _moduloSelecionado = EModulos.Modulo01; // Exemplo: ID do módulo inicial
-    int _aulaSelecionadaID = 1;   // Exemplo: ID da aula inicial
+    int _aulaSelecionadaID = 1; // Exemplo: ID da aula inicial
 
     protected override void OnInitialized()
     {
@@ -72,11 +94,18 @@
     {
         _moduloSelecionado = sel.moduloId;
         _aulaSelecionadaID = sel.aulaId;
+
+       //UserProgressExtensions.MarcarAulaComoAssistida(sel.aulaId);
+    }
+    
+    void ToggleMenu()
+    {
+        MenuAberto = !MenuAberto;
     }
 
     Aula AulaAtual =>
     _modulos.FirstOrDefault(m => m.Id == _moduloSelecionado)?
-           .Aulas.FirstOrDefault(a => a.Id == _aulaSelecionadaID) ?? new Aula();
+    .Aulas.FirstOrDefault(a => a.Id == _aulaSelecionadaID) ?? new Aula();
 
     void Avancar()
     {
@@ -86,6 +115,7 @@
         if (idxAula < modulo.Aulas.Count - 1)
         {
             _aulaSelecionadaID = modulo.Aulas[idxAula + 1].Id;
+            //UserProgressExtensions.MarcarAulaComoAssistida(_aulaSelecionadaID);
         }
         else
         {

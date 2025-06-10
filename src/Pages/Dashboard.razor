@@ -1,6 +1,7 @@
 ﻿@page "/Dashboard"
 @using ProjectInvest.Entidades
 @using ProjectInvest.Server
+@using System.Text.Json
 
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
@@ -40,17 +41,9 @@
     protected override async Task OnInitializedAsync()
     {
         _cursos = await Task.Run(() => TreinamentoServer.GetCursos());
+        
     }
-
-    // private async Task<int> ObterProgressoAsync(string arquivoJson)
-    // {
-    //     // Simulação. O correto: buscar o arquivo .json (Ex: via JS interop se local, ou API)
-    //     // Exemplo: await JS.InvokeAsync<int>("obterProgresso", arquivoJson);
-    //     if (arquivoJson == "auvp.json") return 39;
-    //     if (arquivoJson == "guia.json") return 100;
-    //     return 0;
-    // }
-
+    
     private void ContinueAprendendo(Curso curso)
     {
         // Redireciona para a página do curso, passando o id do curso por querystring

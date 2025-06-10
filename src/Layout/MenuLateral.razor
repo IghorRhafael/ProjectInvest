@@ -1,16 +1,26 @@
 ﻿@using ProjectInvest.Entidades
 @using ProjectInvest.Enums
+@using ProjectInvest.Server
+
+@inject IJSRuntime JS
+
 @if (MenuAberto)
 {
     <div class="mlateral-menu">
         <div class="mlateral-header">
             <div style="padding: 10px 8px 2px 10px;">
-                <button class="mlateral-back" @onclick="VoltarParaDashboard" style="background: none; border: none; color: #fff; font-size: 17px; cursor: pointer;">
+                <button class="mlateral-back" @onclick="VoltarParaDashboard"
+                    style="background: none; border: none; color: #fff; font-size: 17px; cursor: pointer;">
                     &larr; Voltar para a página do curso
                 </button>
             </div>
             <div style="width:45%; align-content: normal">
-                <button class="mlateral-toggle" @onclick="ToggleMenu">&lt;&lt;</button>
+                <button class="mlateral-toggle" @onclick="ToggleMenu">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="color: #efbf4f;" width="32" height="32"
+                        fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                    </svg></button>
             </div>
         </div>
         <div class="mlateral-title">
@@ -36,12 +46,19 @@
                             @foreach (var aula in modulo.Aulas)
                             {
                                 bool isSelected = modulo.Id == ModuloSelecionadoId && aula.Id == AulaSelecionadaId;
-                                <div class="mlateral-aula @(isSelected ? "selected" : "")" @onclick="() => SelecionarAula((EModulos)modulo.Id, aula.Id)">
+                                <div class="mlateral-aula @(isSelected ? "selected" : "")"
+                                    @onclick="() => SelecionarAula((EModulos)modulo.Id, aula.Id)">
                                     <span class="mlateral-icon">
                                         @switch (aula.Tipo)
                                         {
                                             case ETipoAulas.Video:
-                                                <span>&#9658;</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                    class="bi bi-play-circle" style="width:27px; height:27px; color:#efbf4f"
+                                                    viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                                    <path
+                                                        d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445" />
+                                                </svg>
                                                 ; // Play icon
                                                 break;
                                             case ETipoAulas.Ebook:
@@ -53,15 +70,18 @@
                                                 ; // Document icon
                                                 break;
                                         }
-                                    </span>
-                                    <div class="mlateral-info">
-                                        <span class="mlateral-aula-nome">@aula.Nome</span>
-                                        <span class="mlateral-aula-tipo">@((aula.Tipo == ETipoAulas.Video) ? "video" : aula.Tipo == ETipoAulas.Ebook ? "ebook" : "Material de apoio")</span>
-                                    </div>
-                                    <span class="mlateral-dur">@aula.Duracao</span>
-                                    <span class="mlateral-check">&#10003;</span>
-                                </div>
-                            }
+                                </span>
+                                <div class="mlateral-info">
+                                    <span class="mlateral-aula-nome">@aula.Nome</span>
+                                    <span class="mlateral-aula-tipo">@((aula.Tipo == ETipoAulas.Video) ? "video" : aula.Tipo ==
+                                                                    ETipoAulas.Ebook ? "ebook" : "Material de apoio")</span>
+                    </div>
+                    <span class="mlateral-dur">@aula.Duracao</span>
+                    @* <span class="mlateral-check">&#10003;</span> *@
+                    <span class="mlateral-check"
+                        style="@(_aulasAssistidas.Contains(aula.Id) ? "" : "display:none")">&#10003;</span>
+                </div>
+                                }
                         </div>
                     }
                 </div>
@@ -72,7 +92,13 @@
 else
 {
     <div class="mlateral-fechado">
-        <button class="mlateral-toggle" @onclick="ToggleMenu">&gt;&gt;</button>
+        <button class="mlateral-toggle" @onclick="ToggleMenu">
+            <svg xmlns="http://www.w3.org/2000/svg" style="color: #efbf4f;" width="32" height="32" fill="currentColor"
+                class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+            </svg>
+        </button>
     </div>
 }
 
@@ -81,7 +107,7 @@ else
     [Inject]
     private NavigationManager Navigation { get; set; } = default!;
 
-
+    #region parametros
     [Parameter]
     public int Progresso { get; set; } = 39;
 
@@ -100,9 +126,31 @@ else
     [Parameter]
     public EventCallback<(EModulos modulo, int aula)> OnAulaSelecionada { get; set; }
 
-    bool MenuAberto = true;
+    [Parameter]
+    public bool MenuAberto { get; set; }
 
-    void ToggleMenu() => MenuAberto = !MenuAberto;
+    [Parameter]
+    public EventCallback OnToggleMenu { get; set; }
+    #endregion
+
+    List<int> _aulasAssistidas = new List<int>();
+
+    async Task ToggleMenu() => await OnToggleMenu.InvokeAsync();
+    double progresso = 0;
+
+    //Ao inicializar o componente, busca o usuario no localStorage, consulta as aulas assistidas em
+    // UserProgressExtensions.GetUserProgressAsync e calcula o progresso
+    @* protected override async Task OnInitializedAsync()
+    {
+        var usuarioAtual = await JS.InvokeAsync<string>("localStorage.getItem", "usuarioAtual");
+        if (!string.IsNullOrEmpty(usuarioAtual))
+        {
+            var aulasAssistidas = await UserProgressExtensions.GetUserProgressAsync(usuarioAtual);
+            _aulasAssistidas = aulasAssistidas.AulasAssistidas;
+            progresso = UserProgressExtensions.CalcularProgresso(Modulos, _aulasAssistidas);
+        }
+    } *@
+
 
     void ExpandirModulo(EModulos moduloId)
     {

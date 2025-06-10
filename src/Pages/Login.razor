@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager Navigation
+@inject IJSRuntime JS
 
 <PageTitle>Login</PageTitle>
 
@@ -7,7 +8,7 @@
 <div id="loginPage" class="login-container">
     <div class="login-form">
         <h1>AUVP</h1>
-        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLoginAsync">
             @* <form id="loginForm"> *@
             <div class="form-group">
                 <label for="username">Username</label>
@@ -35,12 +36,15 @@
 @code {
     private LoginModel loginModel = new();
     private bool showError = false;
+    List<string> _users = new List<string> { "Admin","Livio","Arianne","Lucas" };
 
-    private void HandleLogin()
+    private async Task HandleLoginAsync()
     {
-        if (loginModel.Username == "admin" && loginModel.Password == "123")
+ 
+        if (_users.Any(a => a.ToLower().Equals(loginModel.Username.ToLower())) && loginModel.Password == "12345")
         {
-            Navigation.NavigateTo("/Dashboard");
+            //await JS.InvokeVoidAsync("localStorage.setItem", "usuarioAtual", loginModel.Username);
+            Navigation.NavigateTo("/Dashboard"); 
         }
         else
         {

@@ -1,4 +1,8 @@
-﻿.mlateral-menu {
+﻿article {
+    position: relative;
+}
+
+.mlateral-menu {
     width: 27%;
     background: #2d2d2d;
     min-width: 200px;
@@ -12,9 +16,20 @@
     transition: all 0.3s ease;
     overflow-y: auto;
     position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.mlateral-menu ~ .content-page {
+    margin-left: 27%;
+    transition: margin-left 0.3s;
+    position: relative; /* Garante que o content-page fique no fluxo normal */
+    z-index: 1;
 }
 
 .mlateral-fechado {
+    position: absolute;
+    z-index: 3;
     width: 54px;
     min-width: 54px;
     height: 47px;
@@ -25,6 +40,12 @@
     align-items: center;
     padding-top: 8px;
     box-shadow: 2px 0 10px #0002;
+    margin-left: 13px;
+}
+
+.mlateral-fechado ~ .content-page {
+    margin-left: 0;
+    transition: margin-left 0.3s;
 }
 
 .mlateral-header {
@@ -203,10 +224,20 @@
 }
 
 @media (max-width:900px) {
-    .mlateral-menu, .mlateral-fechado {
+    .mlateral-fechado {
+        min-width: 54px;
+        z-index:3;
+    }
+    .mlateral-menu {
         width: 100%;
         min-width: 54px;
-        /*position: absolute;*/
-        z-index:3;
+        z-index: 3;
+        left: 0;
+        top: 0;
+    }
+
+    .mlateral-menu ~ .content-page,
+    .mlateral-fechado ~ .content-page {
+        margin-left: 0 !important;
     }
 }

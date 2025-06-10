@@ -454,9 +454,22 @@
     width: 100%;
 }
 
+.content-page.menu-aberto {
+    margin-left: 27%;
+    transition: margin-left 0.3s;
+}
+.content-page.menu-fechado {
+    margin-left: 0;
+    transition: margin-left 0.3s;
+}
+
 @media (max-width:900px) {
     /*.curso3-menu, .curso3-menu-fechado { width: 100px; min-width: 56px; }*/
     .curso3-main {
         padding: 0;
+    }
+    .content-page.menu-aberto,
+    .content-page.menu-fechado {
+        margin-left: 0 !important;
     }
 }
