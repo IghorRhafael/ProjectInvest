@@ -44,7 +44,7 @@
         if (_users.Any(a => a.ToLower().Equals(loginModel.Username.ToLower())) && loginModel.Password == "12345")
         {
             //await JS.InvokeVoidAsync("localStorage.setItem", "usuarioAtual", loginModel.Username);
-            Navigation.NavigateTo("ProjectInvest/Dashboard"); 
+            Navigation.NavigateTo("/Dashboard"); 
         }
         else
         {
