@@ -41,13 +41,13 @@
     protected override async Task OnInitializedAsync()
     {
         _cursos = await Task.Run(() => TreinamentoServer.GetCursos());
-        
+
     }
     
     private void ContinueAprendendo(Curso curso)
     {
         // Redireciona para a página do curso, passando o id do curso por querystring
         var moduloId = (int)curso.Id;
-        Navigation.NavigateTo($"/treinamento/{moduloId}");
+        Navigation.NavigateTo($"ProjectInvest/treinamento/{moduloId}");
     }
 }
