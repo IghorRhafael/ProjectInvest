@@ -83,7 +83,7 @@
         var usuario = await JS.InvokeAsync<string>("localStorage.getItem", "usuarioAtual");
         if (string.IsNullOrEmpty(usuario))
         {
-            Navigation.NavigateTo("/");
+            Navigation.NavigateTo("");
             return;
         }
 
