@@ -160,6 +160,7 @@ else
 
     void SelecionarAula(EModulos moduloId, int aulaId)
     {
+        ToggleMenu();
         OnAulaSelecionada.InvokeAsync((moduloId, aulaId));
     }
 
