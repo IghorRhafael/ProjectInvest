@@ -1,4 +1,4 @@
-﻿@page "/treinamento/{moduloID:int}"
+﻿@page "/treinamento/{moduloID:int}/{ultimaAulaVista:int}"
 
 @using System.Web
 @using ProjectInvest.Entidades
@@ -9,9 +9,12 @@
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
 
-<MenuLateral Progresso="@progresso" Modulos="@_modulos" ModuloSelecionadoId="@_moduloSelecionado"
-    AulaSelecionadaId="@_aulaSelecionadaID" OnModuloSelecionado="OnModuloSelecionado"
-    OnAulaSelecionada="OnAulaSelecionada" MenuAberto="@MenuAberto" OnToggleMenu="ToggleMenu" />
+
+<MenuLateral @ref="menuLateralRef" Modulos="@_modulos" ModuloSelecionadoId="@_moduloSelecionado"
+             AulaSelecionadaId="@_aulaSelecionadaID" OnModuloSelecionado="OnModuloSelecionado"
+             OnAulaSelecionada="OnAulaSelecionada" MenuAberto="@MenuAberto" OnToggleMenu="ToggleMenu" />
+
+
 
 <div class="content-page @(MenuAberto ? "menu-aberto" : "menu-fechado")">
     <div class="content">
@@ -25,10 +28,10 @@
                             <div
                                 style="background:#232323; color:#fff; font-size:18px; font-weight:500; padding:12px 74px 8px 74px; position: sticky; top: 0; z-index:1;">
                                 <button
-                                    style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 16px;"
+                                    style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 10px;"
                                     @onclick="Voltar">&lt; anterior</button>
                                 <button
-                                    style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 16px; float:right;"
+                                    style="background:none; border:none; color:#fff; font-size:17px; cursor:pointer; margin:0 10px; float:right;"
                                     @onclick="Avancar">próximo &gt;</button>
                             </div>
                             <div
@@ -69,7 +72,10 @@
     [Parameter]
     public int moduloID { get; set; } // ID do módulo inicial, pode ser passado via rota
 
-    int progresso = 0;
+    [Parameter]
+    public int ultimaAulaVista { get; set; } // ID da última aula vista, pode ser passado via rota
+
+    private MenuLateral? menuLateralRef;
 
     bool MenuAberto { get; set; } = true;
 
@@ -87,6 +93,8 @@
             return;
         }
 
+        _aulaSelecionadaID = ultimaAulaVista;
+
         _modulos = ModuloServer.GetModulos((ECursos)moduloID);
     }
 
@@ -97,12 +105,14 @@
         _aulaSelecionadaID = _modulos.FirstOrDefault(m => m.Id == moduloId)?.Aulas.FirstOrDefault()?.Id ?? 0;
     }
 
-    void OnAulaSelecionada((EModulos moduloId, int aulaId) sel)
+    async void OnAulaSelecionada((EModulos moduloId, int aulaId) sel)
     {
         _moduloSelecionado = sel.moduloId;
         _aulaSelecionadaID = sel.aulaId;
 
-        //UserProgressExtensions.MarcarAulaComoAssistida(sel.aulaId);
+        await MarcarAulaComoAssistida(sel.aulaId);
+        var progress = await GetUserProgressAsync();
+        menuLateralRef?.AtualizarProgresso(progress.AulasAssistidas);
     }
 
     void ToggleMenu()
@@ -114,7 +124,7 @@
     _modulos.FirstOrDefault(m => m.Id == _moduloSelecionado)?
     .Aulas.FirstOrDefault(a => a.Id == _aulaSelecionadaID) ?? new Aula();
 
-    void Avancar()
+    async void Avancar()
     {
         var modulo = _modulos.FirstOrDefault(m => m.Id == _moduloSelecionado);
         if (modulo == null) return;
@@ -122,7 +132,10 @@
         if (idxAula < modulo.Aulas.Count - 1)
         {
             _aulaSelecionadaID = modulo.Aulas[idxAula + 1].Id;
-            //UserProgressExtensions.MarcarAulaComoAssistida(_aulaSelecionadaID);
+
+            await MarcarAulaComoAssistida(_aulaSelecionadaID);
+            var progress = await GetUserProgressAsync();
+            menuLateralRef?.AtualizarProgresso(progress.AulasAssistidas);
         }
         else
         {
@@ -156,4 +169,48 @@
             }
         }
     }
+
+      
+    public async Task SaveUserProgressAsync(UserProgress progress)
+    {
+        var json = JsonSerializer.Serialize(progress);
+        await JS.InvokeVoidAsync("localStorage.setItem", "aulasAssistidas", json);
+    }
+    public async Task MarcarAulaComoAssistida(int aulaId)
+    {
+        var progress = await GetUserProgressAsync();
+        if (!progress.AulasAssistidas.Contains(aulaId))
+        {
+            progress.AulasAssistidas.Add(aulaId);
+            await SaveUserProgressAsync(progress);
+        }
+    }
+
+    public async Task<UserProgress?> GetUserProgressAsync()
+    {
+        var json = await JS.InvokeAsync<string>("localStorage.getItem", "aulasAssistidas");
+        if (string.IsNullOrEmpty(json))
+            return new UserProgress();
+
+        try
+        {
+            // Tenta desserializar como UserProgress
+            var progress = JsonSerializer.Deserialize<UserProgress>(json);
+            if (progress != null && progress.AulasAssistidas != null)
+                return progress;
+        }
+        catch { }
+
+        try
+        {
+            // Tenta desserializar como List<int>
+            var aulas = JsonSerializer.Deserialize<List<int>>(json);
+            if (aulas != null)
+                return new UserProgress { AulasAssistidas = aulas };
+        }
+        catch { }
+
+        return new UserProgress();
+    }
+
 }

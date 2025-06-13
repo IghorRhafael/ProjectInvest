@@ -12,6 +12,7 @@ public class CursoServer
             ECursos.AUVP => GetCursoAUVP(),
             ECursos.MacroEconomiaGeopolitica => GetCursoMacroEconomiaGeopolitica(),
             ECursos.ImpostoDeRenda => GetCursoImpostoDeRenda(),
+            ECursos.Lives => GetLives(),
             _ => throw new ArgumentOutOfRangeException(nameof(eCursos), eCursos, null)
         };
     }
@@ -24,6 +25,7 @@ public class CursoServer
             Titulo = "AUVP - A ÚNICA VERDADE POSSÍVEL",
             ImagemUrl = "https://lwfiles.mycourse.app/65f0605f45786c13a78a559b-public/custom/400x0_820adb0afb9f4714b2adbcdcf8d68fdf.png",
             Progresso = 0,
+            UltimaAulaVista = 1,
             ArquivoRegistro = "curso-auvp.json",
             Modulos = ModuloServer.GetModulos(ECursos.AUVP)
         };
@@ -39,6 +41,7 @@ public class CursoServer
             Titulo = "Macro Economia e Geopolítica",
             ImagemUrl = "https://api.us-e1.learnworlds.com/imagefile/https://lwfiles.mycourse.app/65f0605f45786c13a78a559b-public/c6d953cbf87cade0dde291984e95c22b.jpg?client_id=65f0605f45786c13a78a559b&width=400&height=0",
             Progresso = 0,
+            UltimaAulaVista = 201,
             ArquivoRegistro = "curso-macro-economia-geopolitica.json",
             Modulos = ModuloServer.GetModulos(ECursos.MacroEconomiaGeopolitica)
         };
@@ -54,8 +57,25 @@ public class CursoServer
             Titulo = "Imposto de Renda",
             ImagemUrl = "https://api.us-e1.learnworlds.com/imagefile/https://lwfiles.mycourse.app/65f0605f45786c13a78a559b-public/8ae18521b48fab92bf8b592ad9c717c6.jpg?client_id=65f0605f45786c13a78a559b&width=400&height=0",
             Progresso = 0,
+            UltimaAulaVista = 401,
             ArquivoRegistro = "curso-imposto-de-renda.json",
             Modulos = ModuloServer.GetModulos(ECursos.ImpostoDeRenda)
+        };
+
+        return cursoImpostoRenda;
+    }
+
+     private static Curso GetLives()
+    {
+        var cursoImpostoRenda = new Curso
+        {
+            Id = ECursos.Lives,
+            Titulo = "Lives",
+            ImagemUrl = "https://lwfiles.mycourse.app/65f0605f45786c13a78a559b-public/d52efafdb296d8fead1b9096a38b8663.jpg",
+            Progresso = 0,
+            UltimaAulaVista = 901,
+            ArquivoRegistro = "curso-imposto-de-renda.json",
+            Modulos = ModuloServer.GetModulos(ECursos.Lives)
         };
 
         return cursoImpostoRenda;

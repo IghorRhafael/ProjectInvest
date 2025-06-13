@@ -11,7 +11,8 @@ public class TreinamentoServer
         {
             CursoServer.GetCurso(ECursos.AUVP),
             CursoServer.GetCurso(ECursos.MacroEconomiaGeopolitica),
-            CursoServer.GetCurso(ECursos.ImpostoDeRenda)
+            CursoServer.GetCurso(ECursos.ImpostoDeRenda),
+            CursoServer.GetCurso(ECursos.Lives)
         };
 
         return cursos;

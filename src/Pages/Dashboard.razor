@@ -53,12 +53,72 @@
 
         _cursos = await Task.Run(() => TreinamentoServer.GetCursos());
 
+        //TODO: Passar isso para um metodo separado
+        var aulasAssistidas = await GetUserProgressAsync();
+        if (aulasAssistidas != null && aulasAssistidas.AulasAssistidas != null)
+        {
+            foreach (var curso in _cursos)
+            {
+                // Calcula o progresso de cada curso
+                var progresso = CalcularProgresso(curso.Modulos, aulasAssistidas.AulasAssistidas);
+                curso.Progresso = progresso;
+
+                var ultimaAula = curso.Modulos.SelectMany(m => m.Aulas ?? new List<Aula>())
+                                             .LastOrDefault(a => aulasAssistidas.AulasAssistidas.Contains(a.Id));
+                if (ultimaAula != null)
+                {
+                    curso.UltimaAulaVista = ultimaAula.Id;
+                }
+            };
+        }
     }
 
     private void ContinueAprendendo(Curso curso)
     {
         // Redireciona para a página do curso, passando o id do curso por querystring
         var moduloId = (int)curso.Id;
-        Navigation.NavigateTo($"treinamento/{moduloId}");
+        var ultimaAulaVista = curso.UltimaAulaVista > 0 ? curso.UltimaAulaVista : 1;
+        Navigation.NavigateTo($"treinamento/{moduloId}/{ultimaAulaVista}");
+    }
+ 
+
+    public async Task<UserProgress?> GetUserProgressAsync()
+    {
+        var json = await JS.InvokeAsync<string>("localStorage.getItem", "aulasAssistidas");
+        if (string.IsNullOrEmpty(json))
+            return new UserProgress();
+
+        try
+        {
+            // Tenta desserializar como UserProgress
+            var progress = JsonSerializer.Deserialize<UserProgress>(json);
+            if (progress != null && progress.AulasAssistidas != null)
+                return progress;
+        }
+        catch { }
+
+        try
+        {
+            // Tenta desserializar como List<int>
+            var aulas = JsonSerializer.Deserialize<List<int>>(json);
+            if (aulas != null)
+                return new UserProgress { AulasAssistidas = aulas };
+        }
+        catch { }
+
+        return new UserProgress();
+    }
+
+    public double CalcularProgresso(List<Modulo> modulos, List<int> aulasAssistidas)
+    {
+        if (modulos == null || modulos.Count == 0) return 0;
+        int totalAulas = modulos.Sum(m => m.Aulas?.Count ?? 0);
+        if (totalAulas == 0)
+            return 0;
+
+        int aulasCompletas = modulos.SelectMany(m => m.Aulas ?? new List<Aula>())
+                                    .Count(a => aulasAssistidas.Contains(a.Id));
+
+        return Math.Round((aulasCompletas * 100.0) / totalAulas, 0);
     }
 }

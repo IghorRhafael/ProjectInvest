@@ -4,6 +4,8 @@ public enum ECursos
 {
     AUVP = 1,
     MacroEconomiaGeopolitica = 2,
-    ImpostoDeRenda = 3
+    ImpostoDeRenda = 3,
+    Lives = 4
+
 }
 

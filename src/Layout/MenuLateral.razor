@@ -1,6 +1,7 @@
 ﻿@using ProjectInvest.Entidades
 @using ProjectInvest.Enums
 @using ProjectInvest.Server
+@using System.Text.Json
 
 @inject IJSRuntime JS
 
@@ -26,9 +27,9 @@
         <div class="mlateral-title">
             <span class="mlateral-titulo">AUVP - A Única Verdade Possível</span>
             <div class="mlateral-progress">
-                <span>@Progresso %</span>
+                <span>@progresso %</span>
                 <div class="mlateral-bar-bg">
-                    <div class="mlateral-bar-fill" style="width:@Progresso%"></div>
+                    <div class="mlateral-bar-fill" style="width:@progresso%"></div>
                 </div>
             </div>
         </div>
@@ -108,8 +109,6 @@ else
     private NavigationManager Navigation { get; set; } = default!;
 
     #region parametros
-    [Parameter]
-    public int Progresso { get; set; } = 39;
 
     [Parameter]
     public List<Modulo> Modulos { get; set; } = new List<Modulo>();
@@ -138,19 +137,64 @@ else
     async Task ToggleMenu() => await OnToggleMenu.InvokeAsync();
     double progresso = 0;
 
-    //Ao inicializar o componente, busca o usuario no localStorage, consulta as aulas assistidas em
-    // UserProgressExtensions.GetUserProgressAsync e calcula o progresso
-    @* protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         var usuarioAtual = await JS.InvokeAsync<string>("localStorage.getItem", "usuarioAtual");
         if (!string.IsNullOrEmpty(usuarioAtual))
         {
-            var aulasAssistidas = await UserProgressExtensions.GetUserProgressAsync(usuarioAtual);
+            var aulasAssistidas = await GetUserProgressAsync();
             _aulasAssistidas = aulasAssistidas.AulasAssistidas;
-            progresso = UserProgressExtensions.CalcularProgresso(Modulos, _aulasAssistidas);
-        }
-    } *@
+            progresso = CalcularProgresso(Modulos, _aulasAssistidas);
 
+        }
+    }
+
+    public void AtualizarProgresso(List<int> aulasAssistidas)
+    {
+        _aulasAssistidas = aulasAssistidas;
+        progresso = CalcularProgresso(Modulos, aulasAssistidas);
+        StateHasChanged();
+    }
+
+    public async Task<UserProgress?> GetUserProgressAsync()
+    {
+        var json = await JS.InvokeAsync<string>("localStorage.getItem", "aulasAssistidas");
+        if (string.IsNullOrEmpty(json))
+            return new UserProgress();
+
+        try
+        {
+            // Tenta desserializar como UserProgress
+            var progress = JsonSerializer.Deserialize<UserProgress>(json);
+            if (progress != null && progress.AulasAssistidas != null)
+                return progress;
+        }
+        catch { }
+
+        try
+        {
+            // Tenta desserializar como List<int>
+            var aulas = JsonSerializer.Deserialize<List<int>>(json);
+            if (aulas != null)
+                return new UserProgress { AulasAssistidas = aulas };
+        }
+        catch { }
+
+        return new UserProgress();
+    }
+
+    public double CalcularProgresso(List<Modulo> modulos, List<int> aulasAssistidas)
+    {
+        if (modulos == null || modulos.Count == 0) return 0;
+        int totalAulas = modulos.Sum(m => m.Aulas?.Count ?? 0);
+        if (totalAulas == 0)
+            return 0;
+
+        int aulasCompletas = modulos.SelectMany(m => m.Aulas ?? new List<Aula>())
+                                    .Count(a => aulasAssistidas.Contains(a.Id));
+
+        return Math.Round((aulasCompletas * 100.0) / totalAulas, 0);
+    }
 
     void ExpandirModulo(EModulos moduloId)
     {
@@ -160,8 +204,17 @@ else
 
     void SelecionarAula(EModulos moduloId, int aulaId)
     {
-        ToggleMenu();
         OnAulaSelecionada.InvokeAsync((moduloId, aulaId));
+        _ = FecharMenuSeMobileAsync();
+    }
+
+    private async Task FecharMenuSeMobileAsync()
+    {
+        var isMobile = await JS.InvokeAsync<bool>("isMobileDevice");
+        if (isMobile)
+        {
+            await OnToggleMenu.InvokeAsync();
+        }
     }
 
     void VoltarParaDashboard()

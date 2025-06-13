@@ -12,6 +12,7 @@ public class ModuloServer
             ECursos.AUVP => GetModuloAUVP(),
             ECursos.MacroEconomiaGeopolitica => GetModuloMacroEconomiaGeopolitica(),
             ECursos.ImpostoDeRenda => GetModuloImpostoDeRenda(),
+            ECursos.Lives => GetModuloLives(),
             _ => throw new ArgumentOutOfRangeException(nameof(curso), curso, null)
         };
     }
@@ -37,11 +38,7 @@ public class ModuloServer
     {
         return new List<Modulo>
         {
-            GetMacroEconomiaModulo01(),
-            GetMacroEconomiaModulo02(),
-            GetMacroEconomiaModulo03(),
-            GetMacroEconomiaModulo04(),
-            GetMacroEconomiaModulo05()
+            GetMacroEconomiaModulo01()
         };
     }
 
@@ -50,9 +47,14 @@ public class ModuloServer
         return new List<Modulo>
         {
             GetImpostoDeRendaModulo01(),
-            GetImpostoDeRendaModulo02(),
-            GetImpostoDeRendaModulo03(),
-            GetImpostoDeRendaModulo04()
+        };
+    }
+
+    private static List<Modulo> GetModuloLives()
+    {
+        return new List<Modulo>
+        {
+            GetLives()
         };
     }
 
@@ -151,44 +153,8 @@ public class ModuloServer
         return new Modulo
         {
             Id = EModulos.Modulo01,
-            Nome = "Módulo 01 - Introdução",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo01)
-        };
-    }
-    private static Modulo GetMacroEconomiaModulo02()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo02,
-            Nome = "Módulo 02 - Fundamentos",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo02)
-        };
-    }
-    private static Modulo GetMacroEconomiaModulo03()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo03,
-            Nome = "Módulo 03 - Análise de Cenários",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo03)
-        };
-    }
-    private static Modulo GetMacroEconomiaModulo04()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo04,
-            Nome = "Módulo 04 - Indicadores Econômicos",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo04)
-        };
-    }
-    private static Modulo GetMacroEconomiaModulo05()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo05,
-            Nome = "Módulo 05 - Política Monetária",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo05)
+            Nome = "Macroeconomia e Geopolítica",
+            Aulas = AulaServer.GetAulasMacroEconomiaGeopolitica(EModulos.Modulo01)
         };
     }
     #endregion
@@ -199,37 +165,23 @@ public class ModuloServer
         return new Modulo
         {
             Id = EModulos.Modulo01,
-            Nome = "Módulo 01 - Introdução ao Imposto de Renda",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo01)
-        };
-    }
-    private static Modulo GetImpostoDeRendaModulo02()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo02,
-            Nome = "Módulo 02 - Declaração de Imposto de Renda",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo02)
-        };
-    }
-    private static Modulo GetImpostoDeRendaModulo03()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo03,
-            Nome = "Módulo 03 - Deduções e Isenções",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo03)
-        };
-    }
-    private static Modulo GetImpostoDeRendaModulo04()
-    {
-        return new Modulo
-        {
-            Id = EModulos.Modulo04,
-            Nome = "Módulo 04 - Restituição e Malha Fina",
-            Aulas = AulaServer.GetAulasModulo(EModulos.Modulo04)
+            Nome = "Imposto de Renda",
+            Aulas = AulaServer.GetAulasImpostoDeRenda(EModulos.Modulo01)
         };
     }
     #endregion
+
+    #region ModulosLives
+    private static Modulo GetLives()
+    {
+        return new Modulo
+        {
+            Id = EModulos.Modulo01,
+            Nome = "Lives - Duvidas e Respostas",
+            Aulas = AulaServer.GetLives()
+        };
+    }
+    #endregion
+
 }
 

@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Text.Json
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
 
@@ -9,25 +10,19 @@
     <div class="login-form">
         <h1>AUVP</h1>
         <EditForm Model="@loginModel" OnValidSubmit="HandleLoginAsync">
-            @* <form id="loginForm"> *@
             <div class="form-group">
                 <label for="username">Username</label>
-                @* <input type="text" id="username" name="username" required> *@
                 <InputText aria-required="true" @bind-Value="loginModel.Username" />
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                @* <input type="password" id="password" name="password" required> *@
                 <InputText type="password" aria-required="true" @bind-Value="loginModel.Password" />
             </div>
             <button type="submit" class="login-btn">Login</button>
-            @* <div id="errorMessage" class="error-message hidden"></div> *@
             @if (showError)
             {
                 <div id="errorMessage" class="error-message">Usuário ou senha inválidos</div>
-                @* <p class="mt-4 text-red-500 text-center font-semibold">Usuário ou senha inválidos</p> *@
             }
-            @* </form> *@
         </EditForm>
     </div>
 </div>
@@ -40,6 +35,7 @@
 
     private async Task HandleLoginAsync()
     {
+        var aulas = new List<int>{1,101};
  
         if (_users.Any(a => a.ToLower().Equals(loginModel.Username.ToLower())) && loginModel.Password == "12345")
         {
