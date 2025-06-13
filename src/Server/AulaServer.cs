@@ -106,7 +106,7 @@ public class AulaServer
                 Nome = "Aula 04 - Juros Compostos",
                 Tipo = ETipoAulas.Video,
                 //Link = "https://drive.google.com/file/d/115udNsK4-5CGfrPYJh_wzk1VOdFymMiP/preview",
-                Link = "https://www.youtube.com/embed/YL4ebynnXVo",
+                Link = "https://www.youtube.com/embed/YL4ebynnXVo?si=oWMt4O5tNdAk0xC-",
                 Duracao = "00:15:43"
             },
             new Aula
@@ -115,7 +115,7 @@ public class AulaServer
                 Nome = "Aula 05 - O que é Liberdade Financeira?",
                 Tipo = ETipoAulas.Video,
                 // Link = "https://drive.google.com/file/d/1ZZp38nOfUCRchfCVKV9T1OOnWnxgv81o/preview",
-                Link = "https://www.youtube.com/embed/9yTmKqgmu7E",
+                Link = "https://www.youtube.com/embed/9yTmKqgmu7E?si=Dle-5F90QAHbkCbu",
                 Duracao = "00:20:07"
             },
             new Aula
@@ -124,7 +124,7 @@ public class AulaServer
                 Nome = "Aula 06 - Como não cair em golpes",
                 Tipo = ETipoAulas.Video,
                 // Link = "https://drive.google.com/file/d/1g0ILqDKVc395cWoalrEcbOdmEO-F8IJD/preview",
-                Link = "https://www.youtube.com/embed/q-6t16mW9OE",
+                Link = "https://www.youtube.com/embed/q-6t16mW9OE?si=h2hfDvQtsQHjZQ55",
                 Duracao = "00:15:21"
             },
              new Aula
@@ -133,7 +133,7 @@ public class AulaServer
                 Nome = "Aula 07 - Metade salada e metade droga",
                 Tipo = ETipoAulas.Video,
                 // Link = "https://drive.google.com/file/d/1-UTfp1712fhL_BAJewGb6YJmd_nEzBFY/preview",
-                Link = "https://www.youtube.com/embed/XK2fSuZ_6rU",
+                Link = "https://www.youtube.com/embed/XK2fSuZ_6rU?si=Lnfa-vtSXwMXWUjP",
                 Duracao = "00:07:19"
             },
             new Aula
@@ -150,7 +150,7 @@ public class AulaServer
                 Nome = "Aula 09 - Pare de procrastinar",
                 Tipo = ETipoAulas.Video,
                 // Link = "https://drive.google.com/file/d/1Kmv8oLQHL_XrGPaPyQZ7IQ--DoZ-zWCl/preview",
-                Link = "https://www.youtube.com/embed/hg6hvaoBl3Q",
+                Link = "https://www.youtube.com/embed/hg6hvaoBl3Q?si=2r2uT-aCaKtPWti9",
                 Duracao = "00:13:33"
             },
             new Aula
