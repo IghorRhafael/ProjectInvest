@@ -3,6 +3,8 @@ using ProjectInvest.Enums;
 
 namespace ProjectInvest.Server;
 
+
+
 public class AulaServer
 {
     public static List<Aula> GetAulasModulo(EModulos moduloId)
@@ -378,6 +380,16 @@ public class AulaServer
                 Link = "XXXXXXXX",
                 Duracao = "00:07:55"
             },
+            new Aula
+            {
+                Id = 39,
+                Nome = "Aula 18 - Renda Fixa Internacional",
+                Tipo = ETipoAulas.Video,
+                Link = "XXXXXXXX",
+                Duracao = "00:10:00"
+            },
+
+
 
         };
         return aulas;
