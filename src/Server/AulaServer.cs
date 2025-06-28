@@ -17,6 +17,12 @@ public class AulaServer
                 return AulasModulo02();
             case EModulos.Modulo03:
                 return AulasModulo03();
+            case EModulos.Modulo04:
+                return AulasModulo04();
+            case EModulos.Modulo05:
+                return AulasModulo05();
+            case EModulos.Modulo06:
+                return AulasModulo06();
             default:
                 return new List<Aula>();
         }
@@ -321,7 +327,7 @@ public class AulaServer
                 Id = 31,
                 Nome = "Aula 10 - CDBs, LCs e RDBs",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/uufoSkn0Slg?si=I_XefJ3OUXhT4dhn",
                 Duracao = "00:27:00"
             },
             new Aula
@@ -329,7 +335,7 @@ public class AulaServer
                 Id = 32,
                 Nome = "Aula 11 - LCI e LCA",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/N2K6TqI6sdk?si=NvZ_xTEuddBfIDLy",
                 Duracao = "00:08:15"
             },
             new Aula
@@ -337,7 +343,7 @@ public class AulaServer
                 Id = 33,
                 Nome = "Aula 12 - CRI's e CRA's",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/d6HqVKEyQnU?si=ZZmefz35JnvWUz8z",
                 Duracao = "00:10:58"
             },
             new Aula
@@ -345,7 +351,7 @@ public class AulaServer
                 Id = 34,
                 Nome = "Aula 13 - Debêntures",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/sKG6IqZw7ho?si=iPH7FhEgnLFpzk3o",
                 Duracao = "00:17:21"
             },
             new Aula
@@ -353,7 +359,7 @@ public class AulaServer
                 Id = 35,
                 Nome = "Aula 14 - Fundos de Investimentos",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/8eqIkIkhlT0?si=MoecymZGpK9GxeJF",
                 Duracao = "00:24:38"
             },
             new Aula
@@ -361,7 +367,7 @@ public class AulaServer
                 Id = 36,
                 Nome = "Aula 15 - PRevidência Privada",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/N_x4aaRaHXU?si=Gmi4SyWxLekRzTUU",
                 Duracao = "00:11:19"
             },
             new Aula
@@ -369,7 +375,7 @@ public class AulaServer
                 Id = 37,
                 Nome = "Aula 16 - Contrafluxo",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/uW1Bjf_Ka1A?si=RkK0siXI5C6nmrUe",
                 Duracao = "00:26:07"
             },
             new Aula
@@ -377,23 +383,397 @@ public class AulaServer
                 Id = 38,
                 Nome = "Aula 17 - Montando uma carteira de Renda Fixa",
                 Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
+                Link = "https://www.youtube.com/embed/WhvWCd7kIac?si=D7fvSUmYSc91igS_",
                 Duracao = "00:07:55"
             },
-            new Aula
-            {
-                Id = 39,
-                Nome = "Aula 18 - Renda Fixa Internacional",
-                Tipo = ETipoAulas.Video,
-                Link = "XXXXXXXX",
-                Duracao = "00:10:00"
-            },
-
-
-
+            
         };
         return aulas;
     }
+
+    private static List<Aula> AulasModulo04()
+    {
+        var aulas = new List<Aula>
+        {
+            new Aula
+            {
+                Id = 39,
+                Nome = "Aula 01 - Introdução a Renda Variável",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/wPVt7d43mps?si=QtldUAVCqP0M6OPQ",
+                Duracao = "00:03:28"
+            },
+            new Aula
+            {
+                Id = 40,
+                Nome = "Aula 02 - Bolsa de Valores",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/IbFM3eeLWFc?si=n5WxfD94AuqQfQFQ",
+                Duracao = "00:17:26"
+            },
+            new Aula
+            {
+                Id = 41,
+                Nome = "Aula 03 - Ações: Preço x Valor",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/iIlr46KgJ-4?si=e23JlCxliL0dL58h",
+                Duracao = "00:10:24"
+            },
+            new Aula
+            {
+                Id = 42,
+                Nome = "Aula 04 - Abertura de Capital (IPO)",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/p7nIQTfYUrA?si=eNPBA6AZUr5UD8Ju",
+                Duracao = "00:20:43"
+            },
+            new Aula
+            {
+                Id = 43,
+                Nome = "Aula 05 - Nomeclaturas e termos da bolsa",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/6_xH3H3C5tY?si=KhZpmr42gf8L9K7i",
+                Duracao = "00:27:05"
+            },
+            new Aula
+            {
+                Id = 44,
+                Nome = "Aula 06 - As escolas de investimento",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/kvNACxY_bOA?si=M1HskrlpA44qnUDZ",
+                Duracao = "00:27:41"
+            },
+            new Aula
+            {
+                Id = 45,
+                Nome = "Aula 07 - Analisando ações",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/tXSg1MVXRA8?si=o1LVVPVEiA_xR-mI",
+                Duracao = "00:07:23"
+            },
+            new Aula
+            {
+                Id = 46,
+                Nome = "Aula 07 - Analisando ações - Parte 2",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/P_wRpoUXJu4?si=QbWjO3Fp9qJfxkLe",
+                Duracao = "00:50:50"
+            },
+            new Aula
+            {
+                Id = 47,
+                Nome = "Aula 07 - Analisando ações - Parte 3",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/qf8XekZO3Aw?si=cMHRrbrtx83DBJKf",
+                Duracao = "00:31:27"
+            },
+            new Aula
+            {
+                Id = 48,
+                Nome = "Aula 07 - Analisando ações - Parte 4",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/D8Ts9W7oJyA?si=yBEQ4Ur5BkvWHQ7V",
+                Duracao = "00:33:05"
+            },
+            new Aula
+            {
+                Id = 49,
+                Nome = "Aula Bônus - Introdução ao método de avaliação de empresas de tecnologia",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/-QKvVf9a0aw?si=lDh5b-p5f7jhPfNu",
+                Duracao = "00:29:11"
+            },
+            new Aula
+            {
+                Id = 50,
+                Nome = "Aula 08 - Comprando ações, na pratica",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/2pGL8wbShX8?si=JiyVYTdTA4mrVsfY",
+                Duracao = "00:09:40"
+            },
+            new Aula
+            {
+                Id = 51,
+                Nome = "Aula 09 - Inserindo no diagrama",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/nU1D8W909T4?si=MpcyhkA1yThzdVa2",
+                Duracao = "00:33:19"
+            },
+            new Aula
+            {
+                Id = 52,
+                Nome = "Aula 10 - Para que serve o preço médio",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/GQaLwsj0aqA?si=9txIcqBc7zz7UuNU",
+                Duracao = "00:16:02"
+            },
+            new Aula
+            {
+                Id = 53,
+                Nome = "Aula 11 - Proventos",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/oEkQ9nF7rJs?si=srteCuI9_iNlmy_h",
+                Duracao = "00:17:56"
+            },
+            new Aula
+            {
+                Id = 54,
+                Nome = "Aula 12 - Aluguel de Ações",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/CHimKQL7WDQ?si=W43Cd047zdsjiz1z",
+                Duracao = "00:07:54"
+            },
+            new Aula
+            {
+                Id = 55,
+                Nome = "Aula 13 - Índices e ETFs",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/qa11BDwG0kY?si=hwwU2xOZ4fKkxALG",
+                Duracao = "00:13:36"
+            },
+            new Aula
+            {
+                Id = 56,
+                Nome = "Aula 14 - Fundos Imobiliários (FIIs)",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/2_8E_tfGTno?si=50aag9SttHFX5YO_",
+                Duracao = "00:30:24"
+            },
+            new Aula
+            {
+                Id = 57,
+                Nome = "Aula 15 - Entendendo e comparando fundos imobiliarios",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/78gr5fObivk?si=u7wzcb9rjCyl_yLq",
+                Duracao = "00:33:45"
+            },
+            new Aula
+            {
+                Id = 58,
+                Nome = "Aula 15 - Analisando um FII na prática - Parte 2",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/5NX05dnM3YE?si=Nv_SVw2IEC5cqxCL",
+                Duracao = "00:33:05"
+            },
+            new Aula
+            {
+                Id = 59,
+                Nome = "Aula 16 - Formando uma carteira de ações brasileiras",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/rBj0zVaet2g?si=brM_j0qhxQE3GVw4",
+                Duracao = "00:34:15"
+            },
+            new Aula
+            {
+                Id = 60,
+                Nome = "Aula 17 - O método burro",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/ISLI7CZtefU?si=HjKt1Xq6kVq0HnRK",
+                Duracao = "00:15:17"
+            },
+            new Aula
+            {
+                Id = 61,
+                Nome = "Aula 18 - Fiagro",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/lFrqpWEGaHc?si=Bm2NllkJ_8yxSRF7",
+                Duracao = "00:09:36"
+            },
+            new Aula
+            {
+                Id = 62,
+                Nome = "Aula 19 - FI-Infras",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/054AlXSsT_Y?si=nx6sip-Qdua53icm",
+                Duracao = "00:09:54"
+            },            
+        };
+        return aulas;
+    }
+
+    private static List<Aula> AulasModulo05()
+    {
+        var aulas = new List<Aula>
+        {
+            new Aula
+            {
+                Id = 63,
+                Nome = "Aula 01 - O que é uma reserva de valor, e qual a sua função?",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/DJ7G_oBvwkg?si=07XY7xvEb6oF4CON",
+                Duracao = "00:39:02"
+            },
+            new Aula
+            {
+                Id = 64,
+                Nome = "Aula 02 - Comprando ouro fisico",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/nQS56br9Yts?si=szL77uEdY1ko7_-l",
+                Duracao = "00:25:21"
+            },
+            new Aula
+            {
+                Id = 65,
+                Nome = "Aula 03 - Comprando ouro na bolsa",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/zbaMHYefgbc?si=_k1Q3jAPoeX5Sx8Y",
+                Duracao = "00:16:11"
+            },
+            new Aula
+            {
+                Id = 66,
+                Nome = "Aula 04 - Fundos de Ouro",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/Bd1LGR4ynXU?si=B-k_-MnB45l0p3qw",
+                Duracao = "00:15:23"
+            },
+            new Aula
+            {
+                Id = 67,
+                Nome = "Aula 05 - O que é Bitcoin?",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/5x9-gOthZYw?si=MmWsHWHY6rkM1zqq",
+                Duracao = "00:20:37"
+            },
+            new Aula
+            {
+                Id = 68,
+                Nome = "Aula 06 - Comprando Bitcoin",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/d9oyEKMEIqE?si=j17jl8C3UxqUQhSw",
+                Duracao = "00:24:35"
+            },
+            new Aula
+            {
+                Id = 69,
+                Nome = "Aula 07 - Armazenando e protegendo seus Bitcoins",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/3VkOSdVVQ7c?si=xWqMt8Jfug19m74C",
+                Duracao = "00:20:47"
+            },
+            new Aula
+            {
+                Id = 70,
+                Nome = "Aula 08 - Cold Wallet",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/5l2iSZA5Wzo?si=W2MgBN0l4wTs_Mng",
+                Duracao = "00:15:45"
+            },
+        };
+        return aulas;
+    }
+    private static List<Aula> AulasModulo06()
+    {
+        var aulas = new List<Aula>
+        {
+            new Aula
+            {
+                Id = 71,
+                Nome = "Aula 01 - Por que investir no exterior?",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/OZg0iPV1m3w?si=0hv_T8TLq8WodUvN",
+                Duracao = "00:29:10"
+            },
+            new Aula
+            {
+                Id = 72,
+                Nome = "Aula 02 - Como funciona o mercado americano",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/NIwMHEvNVXQ?si=0rihNv-bMS-2o-R2",
+                Duracao = "00:14:05"
+            },
+            new Aula
+            {
+                Id = 73,
+                Nome = "Aula 03 - Corretoras",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/7KIjNmDzimY?si=GxWyIugo1IrKybIi",
+                Duracao = "00:19:24"
+            },
+            new Aula
+            {
+                Id = 74,
+                Nome = "Aula 03 - Corretoras - Parte 2",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/aa3GwD9-wcw?si=Z2rTo4ZOeDR2GNzJ",
+                Duracao = "00:17:35"
+            },
+            new Aula
+            {
+                Id = 75,
+                Nome = "Aula 03 - Corretoras - Parte 3",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/6VamWHR6x2M?si=3x66WMzalKtsaZgo",
+                Duracao = "00:07:06"
+            },
+            new Aula
+            {
+                Id = 76,
+                Nome = "Aula 04 - Mercado dos EUA x Brasil",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/E6uYoZlPuRw?si=NkjAanKJoD8hCsUi",
+                Duracao = "00:11:59"
+            },
+            new Aula
+            {
+                Id = 77,
+                Nome = "Aula 05 - ETFs",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/-Yo8gVFdYFw?si=vW-mNyX-vOS13H0d",
+                Duracao = "00:10:37"
+            },
+            new Aula
+            {
+                Id = 78,
+                Nome = "Aula 05 - ETFs - Parte 2",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/GOjwvFIV4io?si=cOTp37NcWOKkcPc3",
+                Duracao = "00:25:11"
+            },
+            new Aula
+            {
+                Id = 79,
+                Nome = "Aula 05 - ETFs - Parte 3",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/jAG0F143qrE?si=vqk1W0usoMoTWSaR",
+                Duracao = "00:08:09"
+            },
+            new Aula
+            {
+                Id = 80,
+                Nome = "REITs",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/-Yo8gVFdYFw?si=ZNuRtDz1hazPnnT3",
+                Duracao = "00:22:56"
+            },
+            new Aula
+            {
+                Id = 81,
+                Nome = "Aula 06 - Stocks (Ações Americanas)",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/GV9_RD3dvXI?si=dpel-BkLFpXwFxvO",
+                Duracao = "00:26:45"
+            },
+            new Aula
+            {
+                Id = 82,
+                Nome = "Aula 07 - Renda fixa nos Estados Unidos",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/047JmVFnU3M?si=ylPtAhuHF_kzUkWX",
+                Duracao = "00:16:25"
+            },
+            new Aula
+            {
+                Id = 83,
+                Nome = "Aula 08 - Fixa nos EUA na prática",
+                Tipo = ETipoAulas.Video,
+                Link = "https://www.youtube.com/embed/i0KOLvIxJPo?si=zCHHUUEPutKRU9J8",
+                Duracao = "00:27:52"
+            },
+        };
+        return aulas;
+    }
+
     #endregion
 
     #region Aulas Macro Economia e Geopolítica
